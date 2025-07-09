@@ -64,7 +64,7 @@
 - Downloads, installs, removes
 - can pass sha easily
 
-```console
+```bash
 
 apt search <package name>
 apt install <package name>
@@ -74,8 +74,8 @@ apt upgrade
 apt autoremove
 apt full-upgrade
 
-```
 
+```
 
 
 ## VIM your besr friend for editing files
