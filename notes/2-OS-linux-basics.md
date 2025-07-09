@@ -64,13 +64,19 @@
 - Downloads, installs, removes
 - can pass sha easily
 
-```apt search <package name>```
-```apt install <package name>```
-```apt remove <package name>```
-```apt update```
-```apt upgrade```
-```apt autoremove```
-```apt full-upgrade```
+```console
+
+apt search <package name>
+apt install <package name>
+apt remove <package name>
+apt update
+apt upgrade
+apt autoremove
+apt full-upgrade
+
+```
+
+
 
 ## VIM your besr friend for editing files
 
