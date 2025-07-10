@@ -51,7 +51,7 @@
 * lscpu = cpu info
 * lsmem = memory info
 * sudo = grants super user privileges for cmd
-* su - <username> = become user
+* su - [username] = become user
 * | = pipe, passes output of one cmd as input of next cmd
 * <input> | less = displays reader friendly format for info in CLI
 * <input> | grep <pattern> = filter input based on pattern search
@@ -107,24 +107,28 @@ Users can have multiple groups
 
 ## Commands
 
-* adduser <username>
-* passwd <username>
-* su - <username>
+* adduser [username]
+* passwd [username]
+* su - [username]
 * su - switch root user
-* groupadd <groupname>
-* deluser <username>
-* groupdel >groupname>
-* usermod [OPTIONS] <username>
-* usermod -g <groupname> <username>
-* usermod -G <groupname> <username> (overrides secondary groups list)
-* usermod -aG <groupname> <username> (appends to existing list)
-* gpasswd -d <username> <groupname>
-* groups <username> (lists users groups)
+* sudo bash does the same as above
+* groupadd [groupname]
+* deluser [username]
+* groupdel [groupname]
+* usermod [OPTIONS] [username]
+* usermod -g [groupname] [username]
+* usermod -G [groupname] [username] (overrides secondary groups list)
+* usermod -aG [groupname] [username] (appends to existing list)
+* gpasswd -d [username] [groupname]
+* groups [username] (lists users groups)
 * exit (logout user)
-* chown <username>:<groupname> <filename> (change file ownership)
-* chgrp <groupname> <filename>
+* chown [username]:[groupname] [filename] (change file ownership)
+* chgrp [groupname] [filename]
 
 ## Permissions
+
+_NOTE:_ Octal permissions, 4 = read, 2 = write, 1 = execute
+
 
 (owner)
 
@@ -148,12 +152,14 @@ Users can have multiple groups
 * -= No permission
 
 ## Chmod
-* chmod -x <filename> (remove execute permissions for all owners)
-* chmod g-w <filename> (remove write permissions for group)
-* chmod g+x <filename> (add execute permissions for group)
-* chmod u+x <filename> (add execute permission for user)
-* chmod o+x <filename> (add execute permission for others)
-* chmod g=rwx <filename> (sets specific block permissions for group)
-* chmod 777 <filename> (gives all permission to all owners)
+* chmod -x [filename] (remove execute permissions for all owners)
+* chmod g-w [filename] (remove write permissions for group)
+* chmod g+x [filename] (add execute permissions for group)
+* chmod u+x [filename] (add execute permission for user)
+* chmod o+x [filename] (add execute permission for others)
+* chmod g=rwx [filename] (sets specific block permissions for group)
+* chmod 777 [filename] (gives all permission to all owners)
 
 __NOTE:__ Prefer using chmod g+x etc than octal
+
+_NOTE to self:_ More linux commands are in the RHCSA notes
