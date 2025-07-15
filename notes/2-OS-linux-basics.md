@@ -1,5 +1,9 @@
 # Linux basics
 
+Handouts:
+* ![checklist](assets/files/02_Linux_Checklist.pdf)
+* ![handout](assets/files/02_Linux_Handout.pdf)
+
 ## VMs:
 
 - Need a hypervisor compatiable CPU, to run VMs, most pop is VBOX, I prefer Vmware Workstation pro (snapshots)
@@ -76,7 +80,7 @@ apt full-upgrade
 
 
 ```
-
+03.Bonus - Databases Handout.pdf
 
 ## VIM your besr friend for editing files
 
