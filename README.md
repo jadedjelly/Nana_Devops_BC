@@ -1,5 +1,7 @@
 # Techworld with Nana Devops Bootcamp
 
+This is my journey to Devops, using Nanas Techworld & my own projects (inc articles and more expansive areas covering multiple languages (Java, JS & Node.js, Python, C/C++, Go, Rust, Ruby, PHP, .NET, Scala, Kotlin, Dart / Flutter, Elixir and Haskell)). The aim is to be a proficient Devops Engineer / SRE, covering as many languages and tools as possible in order to land a Devops or SRE role
+
 ![nana Devops](assets/images/nana_bootcamp.png)
 
 ------------------------------------------------------------------
