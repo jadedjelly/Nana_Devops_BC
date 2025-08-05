@@ -44,8 +44,14 @@ sudo snap install intellij-idea-community --classic
 
 - To install npm, gradle etc I wrote a 2x scripts, one to install (_checks whether the apps exist or not_) all the tools, and the other to remove and cleanup, both available here:
 
-* [Installer](scripts/twn-04-installer.sh)
-* [cleaner](scripts/twn-04-cleanup.sh)
+* __Linux scripts__
+* [Installer](notes/scripts/twn-04-installer.sh)
+* [cleaner](notes/scripts/twn-04-cleanup.sh)
+
+* __Windows Scripts__
+* [Installer](notes/scripts/twn-04-installer.bat)
+* [cleaner](notes/scripts/twn-04-cleanup.bat)
+
 
 - all the plugins & dependencies have been downloaded by Intellij
 - I had already installed Java SDK previously so I did not see any red warnings under variables, but if I had, I would have done the steps inside of Intellij to install the version of Java SDK we need (in this case 17)

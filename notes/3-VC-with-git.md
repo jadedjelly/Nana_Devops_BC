@@ -2,6 +2,18 @@ Handouts:
 * ![checklist](assets/files/03_Git_Checklist.pdf)
 * ![handout](assets/files/03_Git_Handout.pdf)
 
+# setting up local git configs
+
+* Create local ssh keys
+
+```console
+ssh-keygen -t ed25519 -C [email address]
+```
+
+* copy the .pub contents to (from github), Settings > SSH and GPG keys
+* give it a name, I usually name it by the computer name
+
+
 # Git flow of setting up a new repo from scratch
 
 1. create a local dir
