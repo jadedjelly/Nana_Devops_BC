@@ -101,5 +101,203 @@ app.listen(port, () => {
     console.log(`Server listening on the port::${port}`);
 });
 ```
+__NOTE:__ _Due to an issue, I am back working off windows, till I can resolve the issue on RHEL9 (changed from Ubuntu, to aid in RHCSA course)_
+
+__NOTE:__ _I have created a script for windows that installs tools, like gradle, node, etc_
 
 # Build an artifact
+
+* Use a build tool
+    * specific to the programming laguage:
+        * Jave:
+            * Maven, Gradle, Ant
+        * Javascript:
+            * Webpack, Vite, Parcel, Gulp
+        * Python:
+            * Setuptools, Poetry, Pybuilder
+        * C/C++:
+            * Make, CMake, Ninja
+        * Rust:
+            * Cargo
+        * Go:
+            * built-in (go build, go test, etc)
+        * .Net/C#:
+            * MSBuild, dotnet CLI
+        * Haskell:
+            * Cabal, Stack
+        * Scala:
+            * sbt (Simple build tool)
+
+* these will install the dependencies
+* Maven, uses XML
+* gradle, uses groovy
+
+* for Gradle, run the below:
+
+```console
+gradle build
+```
+
+* for Maven, run the below:
+
+```console
+mvn install
+```
+* with the above cmd, we get a new folder called "target", this will have the .jar file
+
+# Build tools for development / Managing dependencies
+
+* you need to have these apps installed locally, assuming you would need these installed on the likes of Jenkins (probably as a plugin)
+
+* for maven, they are in a pom.xml file, see below for a snippet:
+
+```xml
+<dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+```
+
+* for Gradle, they are in build.gradle file, a snippet below:
+
+```gradle
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.3'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+    implementation "javax.annotation:javax.annotation-api:1.3.2"
+}
+
+```
+
+* these dependencies come from a repository used by maven & gradle, located at https://mvnrepository.com
+
+# Need a lib for ElasticSearch connection
+Flow:
+1. Find a dependency with name & version
+2. you add it to dependencies file (eg: pom.xml)
+3. Gets downloaded locally (local maven repo)
+
+Intellij, automatically downloaded the dependencies at 1st run (for maven), my vscode does it for certain languages
+
+# Run the app
+
+* to run the app locally, you run the below from the cmd:
+
+```console
+java -jar [path to .jar file]
+```
+
+# Build JS Applications
+
+__NOTE:__ node-app has been uploaded to my own repo, for later testing
+
+* JS doesnt have a special artifact type, so can be made into a ZIP or TAR file
+* alternatives can be npm or yarn, still use package.json
+    * I use npm for my website
+* note: npm & yarn are _Package managers_ - like chocolatey (i assume)
+
+* the below command installs the dependencies
+```console
+npm install
+```
+
+* npm & yarn have their repo (https://www.npmjs.com/package/mongodb (mongodb example))
+* inc'd in the zip / tar, app code, not dependencies, you must install 1st, Unpack the zip/tar and run on the server
+* you need to copy the artifact __&__ the package.json file to the server!!
+* we run the below,
+```console
+npm pack
+```
+
+* npm packed all the files into a .tar file
+* to run locally, we run the below:
+
+```console
+npm start
+```
+
+* for an app that has a front end and back end, viewing the tree for the react-nodejs-example, you can see the api (backend) and the js & css files in /my-app/src/
+* Frontend code needs to be transpiled, code needs to be compressed
+* Webpack is the most common, see below for an example:
+
+![webpack](/assets/images/webpack.PNG)
+
+* we run the following:
+
+```console
+npm install
+npm run build
+```
+
+* a new file is created "server.bundle.js" which is heavily compressed
+
+# dependencies for frontend code
+
+* It's recommended to have the same package management tools for both front and back end
+
+__NOTE:__ We'll explore more about these tools, with my own projects, esp with the WiT site using node & npm
+
+# Publish an artifact
+
+* mvn, gradle, etc have commands that can push the artifact to a server, however in teh real world, we dont do this anymore (local testing inc'd). We would push these to a repo (git) then pull down via docker or jenkins
+    * The same way I did at the S/w dev firm for the firmware updates
+
+# Build tools and Docker
+
+* instead of having multiple types of artifact, we use just one, a Dockerfile, snippet below for the node app: (note, we go deeper later in the course)
+
+
+```dockerfile
+FROM node:10 AS ui-build
+WORKDIR /usr/src/app
+COPY my-app/ ./my-app/
+RUN cd my-app && npm install && npm run build
+
+FROM node:10 AS server-build
+WORKDIR /root/
+COPY --from=ui-build /usr/src/app/my-app/build ./my-app/build
+COPY api/package*.json ./api/
+RUN cd api && npm install
+COPY api/server.js ./api/
+
+EXPOSE 3080
+
+CMD ["node", "./api/server.js"]
+```
+
+* we dont install dependencies on the server, everything gets done inside the image
+* dockerimage is an alternative for all other artifact types
+* You still need to build the apps! but it will end up being a dockerimage
+* below is a dockerfile for the java-app
+
+```dockerfile
+FROM amazoncorretto:17-alpine-jdk
+
+EXPOSE 8080
+
+COPY ./build/libs/java-app-1.0-SNAPSHOT.jar /usr/app
+WORKDIR /usr/app
+
+ENTRYPOINT ["java", "-jar", "java-app-1.0-SNAPSHOT.jar"]
+```
+
+# Build tools for Devops Engineers
+
+* while technically speaking, you probably don't need to know the build tools, from working in Ops, knowing what my devs were working with made it easier for me to understand what happens when these things break, as a Devops Eng, I suspect I'd need the same knowledge in order to better prepare any scripts that I might / will write to automate things. And lets face it, I want to know what the devs are using, so I can be a onestop shop!!!
+* I also need to know how these apps are being compiled etc, in order ot configure CI/CD pipelines!
+* Install dependencies > run tests > build/bundle app > push to repo
+    * this would be the flow for a jenkins pipeline
+* 
