@@ -55,11 +55,16 @@ ENTRYPOINT ["java", "-jar", "java-app-1.0-SNAPSHOT.jar"]
 
 - Docker Engine
     - Docker Server
+        - pulling, starting and stopping containers
     - Container Runtime
+        - managing lifecycle
     - Volumes
+        - persistent data
     - Network
-    - build img
+        - config network for container communications
+    - build image
     - Docker API
+        - interacts with the server
     - Docker CLI
 
 ### Useful docker commands
@@ -85,6 +90,19 @@ ENTRYPOINT ["java", "-jar", "java-app-1.0-SNAPSHOT.jar"]
 * docker build -t <IMG_NAME>:<VERSION_TAG> . (build image)
 * docker rm <CONTAINER_ID> (Delete container)
 * docker rmi <IMAGE_ID> (Delete image)
+
+### Docker Demo - Overview
+
+DockerHub > JS app commited > trigger CICD > builds Docker image
+
+__NOTE:__ Demo did not work, and Tech support on Discord, basically said "it works on ours"
+
+__NOTE2:__ Created Webapp via ChatGPT, and uploaded app to git, located [here](https://github.com/jadedjelly/TWN-07-js-GPT-app):
+
+![07-docker-web-app](/assets/notes_images/07-docker-web-app.PNG)
+
+
+
 
 ### Docker Network
 
